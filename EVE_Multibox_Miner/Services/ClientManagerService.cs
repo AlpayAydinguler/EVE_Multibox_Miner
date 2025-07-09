@@ -11,7 +11,17 @@ namespace EVE_Multibox_Miner.Services
     public class ClientManagerService
     {
         private static ClientManagerService _instance;
-        public static ClientManagerService Instance => _instance ??= new ClientManagerService();
+        public static ClientManagerService Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new ClientManagerService();
+                }
+                return _instance;
+            }
+        }
 
         private List<ClientProfile> clients = new List<ClientProfile>();
         private Dictionary<string, MiningState> clientStates = new Dictionary<string, MiningState>();

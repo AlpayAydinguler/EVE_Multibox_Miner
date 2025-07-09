@@ -54,9 +54,14 @@ namespace EVE_Multibox_Miner.UI
 
         private void UpdatePositionLabel()
         {
-            lblPosition.Text = Profile.WindowArea.IsEmpty ?
-                "Not set" :
-                $"{Profile.WindowArea.X},{Profile.WindowArea.Y} - {Profile.WindowArea.Width}x{Profile.WindowArea.Height}";
+            if (Profile.WindowArea.IsEmpty)
+            {
+                lblPosition.Text = "Not set";
+            }
+            else
+            {
+                lblPosition.Text = $"{Profile.WindowArea.X},{Profile.WindowArea.Y} - {Profile.WindowArea.Width}x{Profile.WindowArea.Height}";
+            }
         }
 
         private void btnSetCompression_Click(object sender, EventArgs e)

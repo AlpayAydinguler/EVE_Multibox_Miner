@@ -10,9 +10,15 @@ namespace EVE_Multibox_Miner.UI
 
         public StatusIndicator()
         {
-            InitializeComponent();
-            DoubleBuffered = true;
+            // InitializeComponent(); // Remove this line
+            InitializeControl(); // Use custom initialization
             SetState(MiningState.Mining);
+        }
+
+        private void InitializeControl()
+        {
+            this.DoubleBuffered = true;
+            this.Size = new Size(20, 20);
         }
 
         public void SetState(MiningState state)

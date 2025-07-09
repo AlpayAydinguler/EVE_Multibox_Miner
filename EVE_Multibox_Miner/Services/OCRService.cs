@@ -20,8 +20,11 @@ namespace EVE_Multibox_Miner.Services
         {
             try
             {
-                _engine = new TesseractEngine("./tessdata", "eng", EngineMode.Default);
-                _engine.SetVariable("tessedit_char_whitelist", "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890() ");
+                if (_engine == null)
+                {
+                    _engine = new TesseractEngine("./tessdata", "eng", EngineMode.Default);
+                    _engine.SetVariable("tessedit_char_whitelist", "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890() ");
+                }
             }
             catch (Exception ex)
             {
@@ -93,7 +96,8 @@ namespace EVE_Multibox_Miner.Services
         {
             using (var memoryStream = new MemoryStream())
             {
-                bitmap.Save(memoryStream, ImageFormat.Png);
+                // Use fully qualified name for ImageFormat
+                bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
                 return Pix.LoadFromMemory(memoryStream.ToArray());
             }
         }

@@ -12,7 +12,12 @@ namespace EVE_Multibox_Miner.UI
 
         public AreaSelectorForm()
         {
-            InitializeComponent();
+            // InitializeComponent(); // Remove this line
+            InitializeForm(); // Use custom initialization
+        }
+
+        private void InitializeForm()
+        {
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
             this.Opacity = 0.5;
