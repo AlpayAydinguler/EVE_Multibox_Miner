@@ -90,10 +90,17 @@ namespace EVE_Multibox_Miner.Services
             }
 
             // Move and click compress button
-            var target = GetRandomPointInRectangle(compressRect);
+            target = GetRandomPointInRectangle(compressRect);
             MouseSimulator.HumanLikeMove(target);
             Thread.Sleep(300);
             MouseSimulator.LeftClick();
+        }
+
+        private static Point GetRandomPointInRectangle(Rectangle rect)
+        {
+            int x = random.Next(rect.Left, rect.Right);
+            int y = random.Next(rect.Top, rect.Bottom);
+            return new Point(x, y);
         }
     }
 }
