@@ -71,23 +71,29 @@ namespace EVE_Multibox_Miner.Services
             MouseSimulator.RightClick();
             Thread.Sleep(1000);
 
-            // OCR check for "Compress"
-            if (!OCRService.IsCompressOptionVisible(client))
+            // Store right-click position
+            Point rightClickPosition = Cursor.Position;
+
+            // Calculate compress button position relative to right-click
+            Rectangle compressRect = new Rectangle(
+                rightClickPosition.X + client.CompressXOffset,
+                rightClickPosition.Y + client.CompressYOffset,
+                client.CompressWidth,
+                client.CompressHeight
+            );
+
+            // OCR check
+            if (!OCRService.IsCompressOptionVisible(compressRect))
             {
                 ClientManagerService.Instance.SetClientState(client.Name, MiningState.Docking);
+                return;
             }
-            else
-            {
-                // Move to compress button and click
-                int compressX = client.CompressButton.X + random.Next(client.CompressButton.Width);
-                int compressY = client.CompressButton.Y + random.Next(client.CompressButton.Height);
-                var compressPoint = new Point(compressX, compressY);
 
-                MouseSimulator.HumanLikeMove(compressPoint);
-                Thread.Sleep(300);
-                MouseSimulator.LeftClick();
-                Thread.Sleep(500);
-            }
+            // Move and click compress button
+            var target = GetRandomPointInRectangle(compressRect);
+            MouseSimulator.HumanLikeMove(target);
+            Thread.Sleep(300);
+            MouseSimulator.LeftClick();
         }
     }
 }

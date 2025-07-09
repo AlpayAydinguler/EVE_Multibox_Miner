@@ -191,6 +191,9 @@
     <Compile Include="UI\ClientProfileControl.Designer.cs">
       <DependentUpon>ClientProfileControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\PointCaptureForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UI\StatusIndicator.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -216,7 +219,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="tessdata\eng.traineddata" />
+    <None Include="tessdata\eng.traineddata">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

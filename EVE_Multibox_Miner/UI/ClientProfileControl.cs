@@ -78,12 +78,35 @@ namespace EVE_Multibox_Miner.UI
 
         private void btnSetCompressButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Drag a rectangle over the Compress button");
-            using (var selector = new AreaSelectorForm())
+            MessageBox.Show("1. Right-click on your ore\n2. Click the 'Set Right-Click Position' button\n" +
+                            "3. Click the 'Set Compress Button' button on the context menu");
+
+            // Step 1: Set right-click position
+            using (var pointForm = new PointCaptureForm("Right-Click Position"))
             {
-                if (selector.ShowDialog() == DialogResult.OK)
+                if (pointForm.ShowDialog() == DialogResult.OK)
                 {
-                    Profile.CompressButton = selector.SelectedArea;
+                    Point rightClickPoint = pointForm.CapturedPoint;
+
+                    // Step 2: Set compress button position
+                    using (var pointForm2 = new PointCaptureForm("Compress Button"))
+                    {
+                        if (pointForm2.ShowDialog() == DialogResult.OK)
+                        {
+                            Point compressPoint = pointForm2.CapturedPoint;
+
+                            // Calculate offsets
+                            Profile.CompressXOffset = compressPoint.X - rightClickPoint.X;
+                            Profile.CompressYOffset = compressPoint.Y - rightClickPoint.Y;
+
+                            // Set fixed dimensions
+                            Profile.CompressWidth = 150;  // Typical width
+                            Profile.CompressHeight = 20;  // Typical height
+
+                            MessageBox.Show($"Compress button offsets set: " +
+                                           $"X: {Profile.CompressXOffset}, Y: {Profile.CompressYOffset}");
+                        }
+                    }
                 }
             }
         }

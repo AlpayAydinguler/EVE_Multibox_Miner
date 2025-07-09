@@ -32,14 +32,14 @@ namespace EVE_Multibox_Miner.Services
             }
         }
 
-        public static bool IsCompressOptionVisible(ClientProfile client)
+        public static bool IsCompressOptionVisible(Rectangle menuRect)
         {
             try
             {
                 if (_engine == null) return true; // Fallback if OCR failed
 
                 // Capture the compress button area
-                using (var bitmap = CaptureScreenArea(client.CompressButton))
+                using (var bitmap = CaptureScreenArea(menuRect))
                 {
                     // Preprocess image for better OCR
                     using (var processed = PreprocessImage(bitmap))
